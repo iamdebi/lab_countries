@@ -1,14 +1,17 @@
 <template lang="html">
   <div class="main-container">
     <countries-list :listOfCounties="countries"></countries-list>
-    <country-details v-if="selectedCountry" :country="selectedCountry"></country-details>
+    <country-details
+      v-if="selectedCountry"
+      :country="selectedCountry"
+    ></country-details>
   </div>
 </template>
 
 <script>
 import CountriesList from "./components/countriesList.vue";
 import { eventBus } from "./main.js";
-import countryDetails from "./components/countryDetails.vue"
+import countryDetails from "./components/countryDetails.vue";
 
 export default {
   name: "app",
@@ -25,9 +28,9 @@ export default {
       .then(res => res.json())
       .then(country => (this.countries = country));
 
-      eventBus.$on('clicked-country', (passedCountry) => { 
-        return this.selectedCountry = passedCountry
-      })
+    eventBus.$on("clicked-country", passedCountry => {
+      this.selectedCountry = passedCountry;
+    });
   },
 
   components: {
@@ -38,8 +41,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
-.main-container{
+.main-container {
   display: flex;
   justify-content: space-between;
 }
